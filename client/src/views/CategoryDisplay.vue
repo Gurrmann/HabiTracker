@@ -11,14 +11,14 @@
                                 </b-col>
                             </b-row>
                     </p></b-tab>
-                <b-tab title="Chores"><p>
+                <b-tab title="Chores" if active><p>
                     <b-row align-h="center">
                                 <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category.typeName === 'Chores'">
                                     <category-item class="items" v-bind:category="category"/>
                                 </b-col>
                             </b-row>
                     </p></b-tab>
-                <b-tab title="Studies"><p>
+                <b-tab title="Studies" if active><p>
                     <b-row align-h="center">
                                 <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category.typeName === 'Studies'">
                                     <category-item class="items" v-bind:category="category"/>

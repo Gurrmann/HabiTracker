@@ -5,10 +5,10 @@
     img-src="https://images.pexels.com/photos/4040859/pexels-photo-4040859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
     img-alt="Card Image"
     text-variant="white"
-    title="Your Categories"
+    title="Your Progress"
     sub-title=""
   >
-    <b-card-text  v-if="show">
+    <b-card-text  v-if="show && !patchFlag">
       <p>{{category.name}}</p>
     </b-card-text>
     <b-card-text v-if="!show">
@@ -52,7 +52,7 @@ export default {
             this.info = {
               typeName: response.data.typeName,
               level: response.data.level,
-              experiencePoints: response.data.experiencePoints,
+              experiencePoints: response.data.typeExperience,
               achievements: response.data.achievements
             }
           })
