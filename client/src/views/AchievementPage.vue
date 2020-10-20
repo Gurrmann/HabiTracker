@@ -70,7 +70,8 @@ export default {
       level: 1,
       typeExperience: 0,
       experiencePoints: 0,
-      achievementID: ''
+      achievementID: '',
+      categoryID: ''
     }
   },
   methods: {
@@ -93,9 +94,17 @@ export default {
       }
       if (this.type === 'Fitness' || this.type === 'Chores' || this.type === 'Studies') {
         Api.post(`users/${id}/achievements`, params)
-          .then(request => {
+          .then(async request => {
             this.achievementID = request.data._id
-            this.postCategory()
+            var categoryID = await this.postCategory()
+            console.log(categoryID)
+
+            Api.patch(`/achievements/${this.achievementID}`, { category: categoryID })
+              .then(response => {
+              })
+              .catch(error => {
+                this.message = error.message
+              })
           })
           .catch(error => {
             this.message = error
@@ -103,12 +112,12 @@ export default {
       } else {
         Api.post(`users/${id}/achievements`, params)
           .then(request => {
-            window.location.href = 'AchievementDisplay'
           })
           .catch(error => {
             this.message = error
           })
       }
+      window.location.href = 'AchievementDisplay'
     },
     async postCategory() {
       await this.getAchievementInfo()
@@ -121,13 +130,14 @@ export default {
           typeExperience: this.typeExperience
         }
       }
-      Api.post(`users/${id}/categories`, params)
-        .then(request => {
-          window.location.href = 'AchievementDisplay'
-        })
-        .catch(error => {
+      var catID = await Api.post(`users/${id}/categories`, params)
+        .then(async request => {
+          console.log(request.data)
+          return request.data._id
+        }, error => {
           this.message = error
         })
+      return catID
     },
     async getAchievementInfo() {
       var idwow = cookiesC.getCookieValue('id')

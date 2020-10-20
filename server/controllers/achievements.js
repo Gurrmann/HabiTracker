@@ -108,6 +108,9 @@ router.patch('/:id', function(req, res, next) {
         achievement.degree = (req.body.degree || achievement.degree),
         achievement.description = (req.body.description || achievement.description)
         achievement.complete = (req.body.complete || achievement.complete)
+        if (req.body.category) {
+            achievement.category.push(req.body.category)
+        }
         achievement.save();
         res.status(200).json(achievement);
     });

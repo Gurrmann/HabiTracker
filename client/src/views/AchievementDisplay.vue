@@ -29,6 +29,7 @@ export default {
     return {
       achievements: [],
       categories: [],
+      completeds: [],
       message: '',
       messages: '',
       text: '',
@@ -85,7 +86,13 @@ export default {
       var userId = cookiesC.getCookieValue('id')
       Api.get(`/users/${userId}/achievements`)
         .then(response => {
-          this.achievements = response.data
+          for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].complete === false) {
+              this.achievements.push(response.data[i])
+            } else if (response.data[i].complete === true) {
+              this.completeds.push(response.data[i])
+            }
+          }
         })
         .catch(error => {
           error.message = 'You have no achievements yet'
@@ -129,7 +136,12 @@ export default {
       const paramsAchievement = {
         complete: true
       }
-      Api.delete(`users/${userId}/achievements/${id}`)
+      const paramsCategory = {
+        categoryType: {
+          complete: true
+        }
+      }
+      /* Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
           console.log('succesfully deleted achievement')
           this.deelte = response.data.name
@@ -140,9 +152,18 @@ export default {
         .catch(error => {
           console.log('delete achievement failed')
           this.message = error.message
-        })
+        }) */
       Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
+          if (response.data.category.length > 0) {
+            var idCat = response.data.category[0]
+            Api.patch(`/categories/${idCat}`, paramsCategory)
+              .then(response => {
+              })
+              .catch(error => {
+                this.message = error.message
+              })
+          }
           alert('Congratulations on completing your goal!')
           // window.location.href = 'AchievementDisplay'
         })

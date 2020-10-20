@@ -28,6 +28,7 @@ router.get('/:id', function(req, res, next) {
 //POST a category.
 router.post('/', function(req, res, next) {
     var category = new Category(req.body);
+    category.categoryType.complete = false;
     category.save(function(err, category) {
         if(err) { return next(err); }
         res.status(201).json(category);
@@ -70,6 +71,7 @@ router.patch('/:id', function(req, res, next) {
         category.categoryType.task = (req.body.categoryType.task || category.categoryType.task),
         category.categoryType.level = (req.body.categoryType.level || category.categoryType.level),
         category.categoryType.typeExperience = (req.body.categoryType.typeExperience || category.categoryType.typeExperience)
+        category.categoryType.complete = (req.body.categoryType.complete || category.categoryType.complete)
         category.save();
         res.status(200).json(category);
     });
