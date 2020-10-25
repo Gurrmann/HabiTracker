@@ -56,6 +56,7 @@ router.post('/:id/categories', function(req, res, next){
             return res.status(404).json({'message': 'User not found'});
         };
         var category = new Category(req.body);
+        category.categoryType.complete = false;
         category.save();
         user.category.push(category);
         user.save();

@@ -8,7 +8,8 @@ var categorySchema = new Schema({
         level: {type: Number},
         typeExperience: {type: Number},
         user: [{type: Schema.Types.ObjectId, ref: 'user'}],
-        achievement: [{type: Schema.Types.ObjectId, ref: 'achievement'}]
+        achievement: [{type: Schema.Types.ObjectId, ref: 'achievement'}],
+        complete: {type: Boolean}
     }
 });
 

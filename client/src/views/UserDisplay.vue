@@ -72,6 +72,17 @@
         </b-collapse>
       </b-card>
 
+      <b-card no-body class="mb-1 bg-dark">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-4 variant="danger">Completed Achievements</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+          <b-card-body v-for="completed in categoriesComplete" :key="completed._id">
+                <completed-item class="items" v-bind:completedObject="completed"/>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+
     </div>
       </b-col>
       <b-col></b-col>
@@ -88,6 +99,7 @@ import UserBudgetItem from '@/components/UserBudgetItem.vue'
 import FitnessItem from '@/components/FitnessItem.vue'
 import ChoresItem from '@/components/ChoresItem.vue'
 import StudiesItem from '@/components/StudiesItem.vue'
+import CompletedItem from '@/components/CompletedItem.vue'
 
 export default {
   name: 'users',
@@ -98,7 +110,8 @@ export default {
     UserBudgetItem,
     FitnessItem,
     ChoresItem,
-    StudiesItem
+    StudiesItem,
+    CompletedItem
   },
   mounted() {
     this.getAchievement()
@@ -136,7 +149,9 @@ export default {
       studiesXP: 0,
       achievementID: '',
       achType: '',
-      personalAch: []
+      personalAch: [],
+      categoriesComplete: [],
+      personalAchComplete: []
     }
   },
   methods: {
@@ -167,11 +182,16 @@ export default {
         .then(response => {
           this.achievements = response.data
           for (var i = 0; i < this.achievements.length; i++) {
-            if (this.achievements[i].type === 'Other') {
+            if (this.achievements[i].type === 'Other' && this.achievements[i].complete === false) {
               this.personalAch.push(this.achievements[i])
+              this.personalFlag = true
+            } else if (this.achievements[i].type === 'Other' && this.achievements[i].complete === true) {
+              this.categoriesComplete.push(this.achievements[i])
               this.personalFlag = true
             }
           }
+          console.log(this.personalAch)
+          console.log(this.personalAchComplete)
           if (this.personalFlag === false) {
             this.achFlag = true
             this.messagea = 'You have no personalised achievements yet, '
@@ -201,18 +221,25 @@ export default {
       var id = cookiesC.getCookieValue('id')
       Api.get(`/users/${id}/categories`)
         .then(response => {
-          this.categories = response.data
-          for (var i = 0; i < this.categories.length; i++) {
-            if (this.categories[i].categoryType.typeName === 'Fitness') {
-              this.fitnesses.push(this.categories[i].categoryType)
-            } else if (this.categories[i].categoryType.typeName === 'Chores') {
-              this.choreses.push(this.categories[i].categoryType)
-            } else if (this.categories[i].categoryType.typeName === 'Studies') {
-              this.studieses.push(this.categories[i].categoryType)
+          for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].categoryType.complete === false) {
+              this.categories.push(response.data[i].categoryType)
+            } else if (response.data[i].categoryType.complete === true) {
+              this.categoriesComplete.push(response.data[i].categoryType)
+            }
+          }
+          for (var j = 0; j < this.categories.length; j++) {
+            if (this.categories[j].typeName === 'Fitness') {
+              this.fitnesses.push(this.categories[j])
+            } else if (this.categories[j].typeName === 'Chores') {
+              this.choreses.push(this.categories[j])
+            } else if (this.categories[j].typeName === 'Studies') {
+              this.studieses.push(this.categories[j])
             }
           }
         })
-        .catch(() => {
+        .catch(error => {
+          console.log(error)
           this.catFlag = true
           this.messagec = 'You have no categorised achievements yet, '
           this.categories = []
