@@ -1,3 +1,5 @@
+### This is a personal fork from a group project I was part of in the course DIT341 with the original repository on gitlab, where the final product submitted is on the tag release1. 
+
 # Backend and Frontend Template
 
 Latest version: https://git.ita.chalmers.se/courses/dit341/group-00-web (public Github [mirror](https://github.com/dit341/group-00-web))
