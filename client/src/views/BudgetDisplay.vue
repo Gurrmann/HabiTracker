@@ -1,7 +1,7 @@
 <template>
 <div class ="main bg-dark">
     <b-container>
-        <h1>Your Budget</h1>
+        <h1>Your Budgets</h1>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="budget in budgets" v-bind:key="budget._id">
                 <budget-item class="items" v-bind:budget="budget" v-on:del-budget="deleteBudget"/>

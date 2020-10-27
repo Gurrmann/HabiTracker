@@ -1,7 +1,7 @@
 <template>
 <div>
   <b-card
-    bg-variant="dark"
+    style="background-color: #515151;"
     text-variant="white"
     title="Your Planned Budget"
     sub-title=""
