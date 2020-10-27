@@ -54,16 +54,16 @@
           <b-col></b-col>
         </b-row>
       <p>
-        <b-button v-on:click="updateBudget"> Save/Quit </b-button>
+        <button class="button blue-button" v-on:click="updateBudget"> Save/Quit </button>
       </p>
     </b-card-text>
     <p>
-    <b-button v-on:click="getBudget">{{ status }}</b-button>
+    <button class="button blue-button" v-on:click="getBudget">{{ status }}</button>
     </p>
     <p>
-    <b-button v-on:click="showForm">Update your budget</b-button>
+    <button class="button blue-button" v-on:click="showForm">Update your budget</button>
     </p>
-    <b-button variant="danger" v-on:click="$emit('del-budget', budget._id)">Delete Budget</b-button>
+    <button class="button red-button" v-on:click="$emit('del-budget', budget._id)">Delete Budget</button>
   </b-card>
   </div>
 </template>
@@ -163,3 +163,25 @@ export default {
   }
 }
 </script>
+<style>
+.button {
+  border: none;
+  font-size: 16px;
+  color: white;
+  border-radius: 12px;
+  padding: 5px 10px;
+  margin: 0px
+}
+.blue-button {
+  background-color: #02a2f2;
+}
+.blue-button:hover {
+  background-color: #5202f2;
+}
+.red-button {
+  background-color: red;
+}
+.red-button:hover {
+  background-color: darkred;
+}
+</style>

@@ -1,6 +1,9 @@
 <template>
 <div>
   <b-card
+    img-src="https://cdn.pixabay.com/photo/2016/12/17/10/21/grass-1913167_960_720.jpg"
+    img-width="150px"
+    img-height="200px"
     style="background-color: #515151"
     text-variant="white"
     sub-title=""
@@ -33,7 +36,6 @@
 
 <script>
 import { Api } from '@/Api'
-// import cookies from '../cookies/cookies'
 
 export default {
   data() {
