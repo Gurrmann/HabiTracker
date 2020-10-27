@@ -1,7 +1,7 @@
 <template>
 <div>
   <b-card
-    bg-variant="dark"
+    style="background-color: #515151"
     text-variant="white"
     sub-title=""
   >
@@ -9,24 +9,24 @@
       <p>{{achievement.name}}</p>
     </b-card-text>
     <b-card-text v-if="!show">
-      <p>Achievement Name: {{info.name}}</p>
+      <p>{{info.name}}</p>
       <hr class="my-4">
-      <p>Category: {{info.type}}</p>
+      <p>{{info.type}}</p>
       <hr class="my-4">
-      <p>Description: {{info.description}}</p>
+      <p>{{info.description}}</p>
       <hr class="my-4">
-      <p>Degree: {{info.degree}}</p>
+      <p>{{info.degree}}</p>
       <hr class="my-4">
-      <p>Exp: {{info.experiencePoints}}</p>
+      <p>Experience points: {{info.experiencePoints}}</p>
       <hr class="my-4">
     </b-card-text>
     <p>
-    <button class="blue-button" v-on:click="getAchievement">{{ details }}</button>
+    <button class="button blue-button" v-on:click="getAchievement">{{ details }}</button>
     </p>
     <p>
-    <button class="blue-button" v-on:click="$emit('complete-achievement', achievement._id)"> {{ status }} </button>
+    <button class="button blue-button" v-on:click="$emit('complete-achievement', achievement._id)"> {{ status }} </button>
     </p>
-    <button style="background-color: red;" class="blue-button" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</button>
+    <button class="button red-button" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</button>
   </b-card>
   </div>
 </template>
@@ -78,13 +78,24 @@ export default {
 }
 </script>
 <style>
-.blue-button {
+.button {
   border: none;
   font-size: 16px;
   color: white;
-  background-color: lightskyblue;
   border-radius: 12px;
   padding: 5px 10px;
   margin: 0px
+}
+.blue-button {
+  background-color: #02a2f2;
+}
+.blue-button:hover {
+  background-color: #5202f2;
+}
+.red-button {
+  background-color: red;
+}
+.red-button:hover {
+  background-color: darkred;
 }
 </style>
