@@ -21,12 +21,12 @@
       <hr class="my-4">
     </b-card-text>
     <p>
-    <b-button v-on:click="getAchievement">{{ details }}</b-button>
+    <button class="blue-button" v-on:click="getAchievement">{{ details }}</button>
     </p>
     <p>
-    <b-button v-on:click="$emit('complete-achievement', achievement._id)"> {{ status }} </b-button>
+    <button class="blue-button" v-on:click="$emit('complete-achievement', achievement._id)"> {{ status }} </button>
     </p>
-    <b-button variant="danger" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</b-button>
+    <button style="background-color: red;" class="blue-button" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</button>
   </b-card>
   </div>
 </template>
@@ -77,3 +77,14 @@ export default {
   }
 }
 </script>
+<style>
+.blue-button {
+  border: none;
+  font-size: 16px;
+  color: white;
+  background-color: lightskyblue;
+  border-radius: 12px;
+  padding: 5px 10px;
+  margin: 0px
+}
+</style>
